@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Sürpriz 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg, #800020, #1a0006);
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* Şiir */
+.poem {
+  max-width: 700px;
+  margin: auto;
+  font-size: 1.2em;
+  line-height: 1.8;
+  animation: fadeIn 2s;
+}
+
+/* Video */
+.video-box {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+video {
+  width: 90%;
+  max-width: 600px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+/* Son mesaj butonu */
+.final-btn {
+  margin-top: 50px;
+  padding: 14px 28px;
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  background: white;
+  color: #800020;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.final-btn:hover {
+  transform: scale(1.08);
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Mesaj Kutusu */
+.message-box {
+  background: linear-gradient(120deg, #a00030, #400010);
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 340px;
+  animation: fadeIn 0.6s;
+}
+
+/* Popup başlık */
+.popup-title {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+
+/* NABIZ */
+.pulse {
+  animation: pulseText 1.3s infinite;
+}
+
+@keyframes pulseText {
+  0% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.7; }
+}
+
+/* Müzik butonu */
+.music-btn {
+  margin-bottom: 15px;
+  padding: 8px 18px;
+  font-size: 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background: white;
+  color: #800020;
+}
+
+/* Foto */
+.message-box img {
+  width: 100%;
+  max-height: 260px;     /* 🔥 taşmayı önler */
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.message-box {
+  background: linear-gradient(120deg, #a00030, #400010);
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 340px;
+
+  max-height: 85vh;          /* 🔥 ÖNEMLİ */
+  overflow-y: auto;          /* 🔥 Scroll */
+
+  animation: fadeIn 0.6s;
+}
+
+.close-btn {
+  margin-top: 20px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  background: white;
+  color: #800020;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<h1>💌 Sana Bir Şiir 💌</h1>
+
+<div class="poem">
+  Gülüşün düşüyor geceme,<br>
+  Kalbim adını ezberliyor.<br><br>
+
+  Her baktığım yerde sen,<br>
+  Her duamda biz oluyoruz.<br><br>
+
+  Sadece 14 Şubat değil,<br>
+  Her günüm sensin ❤️
+</div>
+
+<h2 style="margin-top:20px; opacity:0.8;">▶️ Videoya dokun 💖</h2>
+<p>Not: Videonun altında son bir şey daha var😉</p>
+
+<div class="video-box">
+  <video controls loop>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+</div>
+
+<p>Videoyu durdurup basarsan daha iyi olur🙃</p>
+
+<button class="final-btn" onclick="openMessage()">
+  💌 Son bir mesajım var
+</button>
+
+<!-- POPUP -->
+<div class="overlay" id="overlay">
+  <div class="message-box">
+
+    <div class="popup-title" id="songTitle">
+      🎶 Bu bizim şarkımız olsun 🎶
+    </div>
+
+    <button class="music-btn" id="musicBtn" onclick="togglePopupMusic()">
+      🎵 Müziği Aç
+    </button>
+
+    <audio id="popupMusic" loop>
+      <source src="bizimsarkimiz.mp3" type="audio/mpeg">
+    </audio>
+
+    <img src="foto-final.jpg" alt="Biz ❤️">
+
+    <p>
+      Bunu okurken belki gülümsüyorsundur…<br><br>
+      Ama bilmeni isterim ki;<br>
+      seni sevmek benim en güzel kararım oldu.<br><br>
+      İyi ki varsın güzelim 💖
+    </p>
+    <h3>Yazılımcı bir sevgilinde olduğunu unutma😉</h3>
+
+    <button class="close-btn" onclick="closeMessage()">Kapat 🤍</button>
+  </div>
+</div>
+
+<script>
+let popupMusicPlaying = false;
+const popupMusic = document.getElementById("popupMusic");
+const songTitle = document.getElementById("songTitle");
+const musicBtn = document.getElementById("musicBtn");
+
+function openMessage() {
+  document.getElementById("overlay").style.display = "flex";
+}
+
+function closeMessage() {
+  document.getElementById("overlay").style.display = "none";
+  popupMusic.pause();
+  popupMusic.currentTime = 0;
+  popupMusicPlaying = false;
+  musicBtn.innerText = "🎵 Müziği Aç";
+  songTitle.classList.remove("pulse");
+}
+
+function togglePopupMusic() {
+  if (!popupMusicPlaying) {
+    popupMusic.play();
+    musicBtn.innerText = "🔇 Müziği Kapat";
+    popupMusicPlaying = true;
+    songTitle.classList.add("pulse");
+  } else {
+    popupMusic.pause();
+    musicBtn.innerText = "🎵 Müziği Aç";
+    popupMusicPlaying = false;
+    songTitle.classList.remove("pulse");
+  }
+}
+</script>
+
+</body>
+</html>

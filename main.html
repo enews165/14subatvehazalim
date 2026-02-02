@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>14 Şubat 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg, #800020, #1a0006);
+  overflow-x: hidden;
+  color: white;
+  text-align: center;
+}
+
+/* Başlıklar */
+h1 {
+  margin-top: 80px;
+  font-size: 3em;
+  animation: fadeIn 2s ease-in-out;
+}
+p {
+  font-size: 1.2em;
+  max-width: 600px;
+  margin: 20px auto;
+  animation: slideUp 2s ease;
+}
+
+/* Butonlar */
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  background: #fff;
+  color: #800020;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 30px;
+}
+button:hover {
+  transform: scale(1.1);
+}
+
+/* Müzik Butonu */
+#musicBtn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.9);
+  color: #800020;
+}
+
+/* Galeri */
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 40px 0;
+}
+.gallery img {
+  width: 200px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 20px;
+  animation: fadeIn 3s;
+}
+
+/* Kalpler */
+.heart {
+  position: fixed;
+  color: pink;
+  font-size: 22px;
+  animation: fall 3s linear forwards;
+  pointer-events: none;
+}
+
+/* Slider */
+input[type=range]{
+  width:80%;
+  margin-top:15px;
+}
+#loveValue{
+  margin-top:10px;
+  font-size:1.2em;
+}
+
+/* Animasyonlar */
+@keyframes fall {
+  0% { transform: translateY(-10vh); opacity: 1; }
+  100% { transform: translateY(110vh); opacity: 0; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Müzik -->
+<button id="musicBtn" onclick="toggleMusic()">🎵 Müziği Aç</button>
+<audio id="bgMusic" loop>
+  <source src="muzik.mp3" type="audio/mpeg">
+</audio>
+
+<p>Müzik Aç Butonuna Basabilirsin.</p>
+
+<h1>💘 Hazalım 💘</h1>
+
+<p>
+Bu site sadece senin için.<br>
+Hayatıma girdiğin günden beri her şey daha güzel.<br>
+14 Şubat’ımız kutlu olsun ❤️
+</p>
+
+<h2>Biraz Aşağı İnersen Bir Sürprizim Var 😉</h2>
+
+<!-- Fotoğraflar -->
+<div class="gallery">
+  <img src="foto1.jpg">
+  <img src="foto2.jpg">
+  <img src="foto3.jpg">
+</div>
+
+<!-- Slider -->
+<div style="margin-top:50px;">
+  <h2>Beni Ne Kadar Seviyorsun? 😏</h2>
+
+  <input type="range" min="0" max="100" value="0" id="loveRange">
+
+  <p id="loveValue">0%</p>
+
+  <p id="loveHint" style="margin-top:10px; font-size:1.1em;">
+    Onu Yüzde Yüz Yaparmısın Rica Etsem👉🏻👈🏻
+  </p>
+  <p id="loveReply" style="margin-top:15px; font-size:1.3em; display:none;">
+  Ben de seni çok seviyorum güzelim ❤️
+</p>
+</div>
+
+<!-- Sürpriz -->
+<a href="surpriz.html">
+  <button>Sana Bir Sürprizim Var 🎁</button>
+</a>
+
+<br><br>
+
+<script>
+// Müzik kontrol
+let isPlaying = false;
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+
+function toggleMusic() {
+  if (!isPlaying) {
+    music.play();
+    btn.innerHTML = "🔇 Müziği Kapat";
+    isPlaying = true;
+  } else {
+    music.pause();
+    btn.innerHTML = "🎵 Müziği Aç";
+    isPlaying = false;
+  }
+}
+
+// Slider + uyarı + kalpler + cevap yazısı
+const range = document.getElementById("loveRange");
+const valueText = document.getElementById("loveValue");
+const hintText = document.getElementById("loveHint");
+const replyText = document.getElementById("loveReply");
+
+let heartPlayed = false;
+
+range.addEventListener("input", () => {
+  valueText.innerText = range.value + "%";
+
+  // Slider konumu
+  const sliderRect = range.getBoundingClientRect();
+  const heartStartY = sliderRect.top - 20;
+
+  if (range.value < 100) {
+    hintText.style.display = "block";
+    replyText.style.display = "none";
+    heartPlayed = false;
+  }
+
+  if (range.value == 100 && !heartPlayed) {
+    hintText.style.display = "none";
+    heartPlayed = true;
+
+    // Kalpler
+    for (let i = 0; i < 14; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "❤️";
+      heart.style.left =
+        sliderRect.left + Math.random() * sliderRect.width + "px";
+      heart.style.top = heartStartY + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+
+    // Kalplerden sonra yazı çıksın
+    setTimeout(() => {
+      replyText.style.display = "block";
+      replyText.style.animation = "fadeIn 1.5s";
+    }, 1800);
+  }
+});
+</script>
+
+</body>
+</html>

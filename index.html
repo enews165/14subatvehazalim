@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Hazır mısın? 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #300010, #000);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* MODERN BUTON */
+#startBtn {
+  padding: 16px 36px;
+  font-size: 1.1em;
+  border-radius: 40px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  color: white;
+  cursor: pointer;
+  z-index: 20;
+  position: relative;
+  animation: pulse 1.8s infinite;
+  transition: 0.3s;
+}
+
+#startBtn:hover {
+  background: rgba(255,255,255,0.18);
+  transform: scale(1.05);
+}
+
+/* Nabız */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 rgba(255,255,255,0.3); }
+  50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); }
+  100% { box-shadow: 0 0 0 rgba(255,255,255,0.3); }
+}
+
+/* PERDELER */
+.curtain {
+  position: fixed;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: rgba(128,0,32,0.85); /* 🔥 ŞEFFAF */
+  z-index: 10;
+  transition: transform 1.6s cubic-bezier(.77,0,.18,1);
+}
+
+#leftCurtain {
+  left: 0;
+}
+
+#rightCurtain {
+  right: 0;
+}
+
+/* Açılma */
+.open #leftCurtain {
+  transform: translateX(-100%);
+}
+.open #rightCurtain {
+  transform: translateX(100%);
+}
+</style>
+</head>
+
+<body>
+
+<div id="leftCurtain" class="curtain"></div>
+<div id="rightCurtain" class="curtain"></div>
+
+<button id="startBtn">🎬 Perdeyi Aç</button>
+
+<script>
+document.getElementById("startBtn").onclick = () => {
+  document.body.classList.add("open");
+
+  setTimeout(() => {
+    window.location.href = "main.html";
+  }, 1700);
+};
+</script>
+
+</body>
+</html>
